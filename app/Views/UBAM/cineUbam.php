@@ -355,3 +355,4 @@
 <script src="/framework_ci4/framework_ci4/public/js/script.js"></script>
 
 </html>
+<!-- VERIFICADO POR QA -->
