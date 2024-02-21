@@ -13,6 +13,12 @@ CREATE TABLE `tbl_ope_pelicula` (
   PRIMARY KEY (`id_pelicula`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+ALTER TABLE `computacionnube_db1`.`tbl_ope_pelicula` 
+DROP COLUMN `costo_pelicula`,
+DROP COLUMN `entradas_pelicula`,
+CHANGE COLUMN `imagenRuta_pelicula` `imagenRuta_pelicula` VARCHAR(200) NULL DEFAULT NULL AFTER `pelicula_pelicula`;
+
+
 CREATE TABLE `tbl_ope_venta` (
   `id_venta` int(11) NOT NULL AUTO_INCREMENT,
   `id_pelicula_venta` int(11) DEFAULT NULL,
