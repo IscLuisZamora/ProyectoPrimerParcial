@@ -35,3 +35,31 @@ BEGIN
 	INSERT INTO tbl_ope_pelicula VALUES(NULL, __nombre, __imagen, 1);
 END$$
 DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_Sales`(__idPelicula int, __cantidad int, __costo int)
+BEGIN
+	INSERT INTO tbl_ope_venta VALUES(NULL, __idPelicula, __cantidad, __costo);
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_TPelicula`(__film varchar(100), __ruta varchar(200))
+BEGIN
+INSERT INTO tbl_pelicula VALUES(NULL,UPPER(__film),__ruta,1);
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `show_FilmTPeliculaId`(_id int)
+BEGIN
+SELECT * FROM tbl_pelicula WHERE id_pelicula=_id;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `showFilms`()
+BEGIN
+SELECT * FROM tbl_pelicula;
+END$$
+DELIMITER ;
