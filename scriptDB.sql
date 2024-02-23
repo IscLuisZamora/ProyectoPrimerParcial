@@ -27,3 +27,11 @@ CREATE TABLE `tbl_ope_venta` (
   KEY `id_pelicula_venta_idx` (`id_pelicula_venta`),
   CONSTRAINT `id_pelicula_venta` FOREIGN KEY (`id_pelicula_venta`) REFERENCES `tbl_ope_pelicula` (`id_pelicula`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- PROCEDURES
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `add_film`(__nombre varchar(50), __imagen varchar(200))
+BEGIN
+	INSERT INTO tbl_ope_pelicula VALUES(NULL, __nombre, __imagen, 1);
+END$$
+DELIMITER ;
