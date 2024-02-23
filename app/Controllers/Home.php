@@ -8,21 +8,60 @@ class Home extends BaseController
 {
     public function index(): string
     {
+        return view('UBAM/cineUbam');
+    }
+
+    public function getFilmsAjax()
+    {
         $Crud = new CrudModel();
         $datos = $Crud->getFilms();
 
-        $data = [
-            "datos" => $datos
+        $response = [
+            'success' => true,
+            'data' => $datos,
         ];
 
-        return view('UBAM/cineUbam', $data);
+        return $this->response->setJSON($response);
     }
 
-    public function insertData()
+    public function getFilmsDetails()
     {
+        $idPelicula = $this->request->getGet('id_pelicula');
+        $Crud = new CrudModel();
+        $detallePelicula = $Crud->getFilmsId($idPelicula);
+
+        $response = [
+            'success' => true,
+            'data' => $detallePelicula,
+        ];
+
+        return $this->response->setJSON($response);
     }
 
-    public function getIdFunction()
+    public function insertDataFilms()
     {
+        $nombrePelicula = $this->request->getPost('nombrePelicula');
+        $imagen = $this->request->getFile('imagenPelicula');
+
+        $imagenPath = $this->saveImage($imagen);
+
+        $imagenRelativePath = '../public/img/movies/' . $imagenPath;
+
+        $Crud = new CrudModel();
+        $result = $Crud->insertFilm($nombrePelicula, $imagenRelativePath);
+
+        $response = [
+            'success' => $result,
+        ];
+
+        return $this->response->setJSON($response);
+    }
+
+    public function saveImage($imagen)
+    {
+        $newName = $imagen->getRandomName();
+        $imagen->move(ROOTPATH . 'public/img/movies', $newName);
+
+        return $newName;
     }
 }
